@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://qiuchen-8.github.io/</id>
     <title>Gridea</title>
-    <updated>2020-09-07T11:45:39.994Z</updated>
+    <updated>2020-09-07T11:47:00.366Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://qiuchen-8.github.io/"/>
     <link rel="self" href="https://qiuchen-8.github.io/atom.xml"/>
@@ -10,6 +10,105 @@
     <logo>https://qiuchen-8.github.io/images/avatar.png</logo>
     <icon>https://qiuchen-8.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[AutoFullHandler.java]]></title>
+        <id>https://qiuchen-8.github.io/post/autofullhandlerjava/</id>
+        <link href="https://qiuchen-8.github.io/post/autofullhandlerjava/">
+        </link>
+        <updated>2020-09-07T11:37:46.000Z</updated>
+        <content type="html"><![CDATA[<p>package com.common.paltfrom.base.config.database;<br>
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;<br>
+import org.apache.ibatis.reflection.MetaObject;</p>
+<p>import java.util.Date;</p>
+<p>/**</p>
+<ul>
+<li>
+<p>自定义sql字段填充器<br>
+*/<br>
+public class AutoFullHandler implements MetaObjectHandler {</p>
+<p>@Override<br>
+public void insertFill(MetaObject metaObject) {<br>
+//判断是否存在指定字段<br>
+if(metaObject.hasGetter(getCreateTimeFieldName())){<br>
+//获取当前值<br>
+Object createTime = getFieldValByName(getCreateTimeFieldName(), metaObject);<br>
+if (createTime == null) {<br>
+setFieldValByName(getCreateTimeFieldName(), new Date(), metaObject);<br>
+}<br>
+}<br>
+//判断是否存在指定字段<br>
+if(metaObject.hasGetter(getCreateUserFieldName())){<br>
+//获取当前值<br>
+Object createUser = getFieldValByName(getCreateUserFieldName(), metaObject);<br>
+if (createUser == null) {<br>
+//获取当前登录用户<br>
+Object accountId = getUserUniqueId();<br>
+setFieldValByName(getCreateUserFieldName(), accountId, metaObject);<br>
+}<br>
+}<br>
+}</p>
+<p>@Override<br>
+public void updateFill(MetaObject metaObject) {<br>
+//判断是否存在指定字段<br>
+if(metaObject.hasGetter(getUpdateTimeFieldName())){<br>
+setFieldValByName(getUpdateTimeFieldName(), new Date(), metaObject);<br>
+}<br>
+//判断是否存在指定字段<br>
+if(metaObject.hasGetter(getUpdateUserFieldName())){<br>
+//获取当前值<br>
+Object updateUser = getFieldValByName(getUpdateUserFieldName(), metaObject);<br>
+if (updateUser == null) {<br>
+//获取当前登录用户<br>
+Object accountId = getUserUniqueId();<br>
+setFieldValByName(getUpdateUserFieldName(), accountId, metaObject);<br>
+}<br>
+}<br>
+}<br>
+/**</p>
+<ul>
+<li>获取创建时间字段的名称（非数据库中字段名称）<br>
+*/<br>
+protected String getCreateTimeFieldName() {<br>
+return &quot;createTime&quot;;<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>获取创建用户字段的名称（非数据库中字段名称）<br>
+*/<br>
+protected String getCreateUserFieldName() {<br>
+return &quot;createUser&quot;;<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>获取更新时间字段的名称（非数据库中字段名称）<br>
+*/<br>
+protected String getUpdateTimeFieldName() {<br>
+return &quot;updateTime&quot;;<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>获取更新用户字段的名称（非数据库中字段名称）<br>
+*/<br>
+protected String getUpdateUserFieldName() {<br>
+return &quot;updateUser&quot;;<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>获取用户唯一id（注意默认获取的用户唯一id为空，如果想填写则需要继承本类）<br>
+*/<br>
+protected Object getUserUniqueId() {<br>
+return &quot;&quot;;<br>
+}<br>
+}</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://qiuchen-8.github.io/post/hello-gridea/</id>
